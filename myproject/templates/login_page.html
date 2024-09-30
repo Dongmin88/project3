@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+{% load account %}
+{% load socialaccount %}
+<html>
+<head>
+    <title>Login Page</title>
+</head>
+<body>
+    <h1>Please login here</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username"><br><br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password"><br><br>
+        <input type="submit" value="Login">
+    </form>
+    <h2>소셜 로그인</h2>
+        {% get_providers as socialaccount_providers %}
+        {% for provider in socialaccount_providers %}
+        <a href="{% provider_login_url provider.id %}">{{ provider.name }}로 로그인</a><br>
+        {% endfor %}
+</body>
+</html>

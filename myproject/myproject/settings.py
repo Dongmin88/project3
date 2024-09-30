@@ -27,10 +27,17 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',  # 구글 로그인을 위해 추가
+    'allauth.socialaccount.providers.microsoft',  # MS 로그인을 위해 추가
+    'allauth.socialaccount.providers.kakao',  # 카카오 로그인을 위해 추가
+    'allauth.socialaccount.providers.naver',  # 네이버 로그인을 위해 추가
     'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -38,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
 ]
 
 MIDDLEWARE = [
@@ -48,14 +56,20 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',  # 이 줄을 추가
 ]
+
+
+
+
+SITE_ID = 1
 
 ROOT_URLCONF = 'myproject.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -99,6 +113,14 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',  # 기본 백엔드
+    'allauth.account.auth_backends.AuthenticationBackend',  # django-allauth 백엔드
+)
+
+LOGIN_REDIRECT_URL = '/'  # 로그인 성공 후 리다이렉트할 경로
+ACCOUNT_LOGOUT_REDIRECT_URL = '/'  # 로그아웃 후 리다이렉트할 경로
 
 
 # Internationalization

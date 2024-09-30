@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 urlpatterns = [
@@ -25,4 +25,5 @@ urlpatterns = [
     path('login/', views.login_page, name='login_page'),  # 로그인 페이지
     path('feature1/', views.feature_page1, name='feature_page1'),  # 기능 페이지 1
     path('feature2/', views.feature_page2, name='feature_page2'),  # 기능 페이지 2
+    path('accounts/', include('allauth.urls')),  # allauth URL 추가
 ]
