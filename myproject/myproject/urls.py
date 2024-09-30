@@ -21,4 +21,8 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/hello/', views.hello_world, name='hello_world'),
+    path('', views.main_page, name='main_page'),  # 메인 페이지
+    path('login/', views.login_page, name='login_page'),  # 로그인 페이지
+    path('feature1/', views.feature_page1, name='feature_page1'),  # 기능 페이지 1
+    path('feature2/', views.feature_page2, name='feature_page2'),  # 기능 페이지 2
 ]
