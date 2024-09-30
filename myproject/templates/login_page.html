@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{% comment %} <!DOCTYPE html>
 {% load account %}
 {% load socialaccount %}
 <html>
@@ -22,3 +22,152 @@
         {% endfor %}
 </body>
 </html>
+ {% endcomment %}
+
+ <!DOCTYPE html>
+ {% load account %}
+ {% load socialaccount %}
+ <html lang="ko">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>로그인</title>
+     <style>
+         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+ 
+         body, html {
+             margin: 0;
+             padding: 0;
+             font-family: 'Roboto', sans-serif;
+             background-color: #000;
+             color: #fff;
+             height: 100%;
+             overflow: hidden;
+         }
+         .container {
+             display: flex;
+             flex-direction: column;
+             justify-content: center;
+             align-items: center;
+             height: 100vh;
+             padding: 20px;
+             box-sizing: border-box;
+             position: relative;
+             z-index: 1;
+         }
+         h1 {
+             font-size: 36px;
+             margin-bottom: 40px;
+             text-shadow: 0 0 10px rgba(255,255,255,0.5);
+         }
+         .login-options {
+             display: flex;
+             flex-direction: column;
+             gap: 15px;
+             width: 100%;
+             max-width: 300px;
+         }
+         .login-button {
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             padding: 15px;
+             border: none;
+             font-size: 16px;
+             cursor: pointer;
+             transition: all 0.3s;
+             text-align: center;
+             font-weight: bold;
+         }
+         .login-button:hover {
+             transform: translateY(-2px);
+             box-shadow: 0 4px 8px rgba(255,255,255,0.2);
+         }
+         .login-button::before {
+             content: '';
+             display: inline-block;
+             width: 24px;
+             height: 24px;
+             margin-right: 10px;
+             background-repeat: no-repeat;
+             background-size: contain;
+             background-position: center;
+         }
+         .login-button.ms {
+             background-color: #fff;
+             color: #5E5E5E;
+         }
+         .login-button.ms::before {
+             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 23 23'%3E%3Cpath fill='%23f35325' d='M0 0h11v11H0z'/%3E%3Cpath fill='%2381bc06' d='M12 0h11v11H12z'/%3E%3Cpath fill='%2305a6f0' d='M0 12h11v11H0z'/%3E%3Cpath fill='%23ffba08' d='M12 12h11v11H12z'/%3E%3C/svg%3E");
+         }
+         .login-button.google {
+             background-color: #fff;
+             color: #757575;
+         }
+         .login-button.google::before {
+             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%23EA4335' d='M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z'/%3E%3Cpath fill='%234285F4' d='M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z'/%3E%3Cpath fill='%23FBBC05' d='M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z'/%3E%3Cpath fill='%2334A853' d='M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z'/%3E%3C/svg%3E");
+         }
+         .login-button.naver {
+             background-color: #03C75A;
+             color: #fff;
+         }
+         .login-button.naver::before {
+             content: 'N';
+             background-color: #fff;
+             color: #03C75A;
+             font-weight: bold;
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             width: 24px;
+             height: 24px;
+         }
+         .login-button.kakao {
+             background-color: #FEE500;
+             color: #000;
+         }
+         .login-button.kakao::before {
+             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 99.61801 92.147'%3E%3Cpath d='M49.809,0C22.297,0,0,17.495,0,39.081c0,14.124,9.366,26.485,23.432,33.439L17.472,91.555c-0.555,1.768,1.455,3.22,2.944,2.117l23.89-16.193c1.792,0.188,3.618,0.288,5.503,0.288,27.513,0,49.809-17.494,49.809-39.08C99.618,17.495,77.322,0,49.809,0' fill='%23000000'/%3E%3C/svg%3E");
+         }
+         #particles-js {
+             position: absolute;
+             width: 100%;
+             height: 100%;
+             top: 0;
+             left: 0;
+             z-index: 0;
+         }
+     </style>
+ </head>
+ <body>
+     <div id="particles-js"></div>
+     <div class="container">
+         <h1>로그인</h1>
+         <div class="login-options">
+             <button class="login-button ms">Microsoft</button>
+             <button class="login-button google">Google</button>
+             <button class="login-button naver">네이버</button>
+             <button class="login-button kakao">카카오</button>
+         </div>
+     </div>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+     <script>
+         particlesJS('particles-js', {
+             particles: {
+                 number: { value: 80, density: { enable: true, value_area: 800 } },
+                 color: { value: "#ffffff" },
+                 shape: { type: "circle" },
+                 opacity: { value: 0.5, random: true },
+                 size: { value: 3, random: true },
+                 line_linked: { enable: true, distance: 150, color: "#ffffff", opacity: 0.4, width: 1 },
+                 move: { enable: true, speed: 2, direction: "none", random: true, out_mode: "out" }
+             },
+             interactivity: {
+                 detect_on: "canvas",
+                 events: { onhover: { enable: true, mode: "repulse" }, onclick: { enable: true, mode: "push" } },
+                 modes: { repulse: { distance: 100, duration: 0.4 }, push: { particles_nb: 4 } }
+             }
+         });
+     </script>
+ </body>
+ </html>
