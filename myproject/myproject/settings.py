@@ -25,6 +25,22 @@ SECRET_KEY = 'django-insecure-%=8)y(xm)w$(5fbtte#004pndd-vhuwn0gn=^bo6z^&2og22wm
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+SOCIALACCOUNT_AUTO_SIGNUP = True
+SOCIALACCOUNT_LOGIN_ON_GET = True
+ACCOUNT_LOGOUT_ON_GET = True
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
+
 ALLOWED_HOSTS = []
 
 # Application definition

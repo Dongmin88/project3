@@ -1,0 +1,20 @@
+{% extends "account/base.html" %}
+
+{% block content %}
+    <h1>Sign In Via {{ provider.name }}</h1>
+    <p>You are about to sign in using a third-party account from {{ provider.name }}.</p>
+    <form method="post" action="{% url 'socialaccount_login' %}">
+        {% csrf_token %}
+        <input type="hidden" name="process" value="connect">
+        <input type="submit" value="Continue">
+    </form>
+
+    <script type="text/javascript">
+        window.onload = function() {
+            var continueButton = document.querySelector("input[type='submit']");
+            if (continueButton) {
+                continueButton.click();
+            }
+        }
+    </script>
+{% endblock %}
