@@ -3,6 +3,12 @@ from rest_framework.decorators import api_view
 from rest_framework import status
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.views.generic import View
+
+
+class CustomLoginCancelledView(View):
+    def get(self, request, *args, **kwargs):
+        return redirect('/')  # 홈페이지 URL로 리다이렉트
 
 # Main page view
 def main_page(request):
